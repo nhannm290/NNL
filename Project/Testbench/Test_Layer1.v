@@ -4,15 +4,15 @@ module Test_Layer1 (
     // Parameter
     parameter DATA_WIDHT = 32;
     parameter CHANNEL_IN = 1;
-    parameter CHANNEL_OUT =8;
+    parameter CHANNEL_OUT =16;
     // Port
 
     parameter CLK = 20;
     parameter Period = CLK*2;
 
-    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer1_Temp_Result.txt";
-    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Result.txt";
-    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result.txt";
+    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result.txt";
+    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Separable_Convolution_8Channel_Result.txt";
+    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Separable_Convolution_8Channel_Temp_Result.txt";
 
     //Port 
     reg [DATA_WIDHT*8-1:0] Data_In;
@@ -39,8 +39,14 @@ module Test_Layer1 (
         while(!$feof(file_read) || Valid_Out ==1) begin
            Data = $fscanf(file_read,"%h",Data_In);
            if (Valid_Out) begin
-               $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
-                $fwrite(file_write_temp,"%h%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
+               $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224],Data_Out[287:256],Data_Out[319:288],Data_Out[351:320],Data_Out[383:352],Data_Out[415:384],Data_Out[447:416],Data_Out[479:448],Data_Out[511:480]);
+
+            // $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
+
+                $fwrite(file_write_temp,"%h%h%h%h%h%h%h%h%h%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224],Data_Out[287:256],Data_Out[319:288],Data_Out[351:320],Data_Out[383:352],Data_Out[415:384],Data_Out[447:416],Data_Out[479:448],Data_Out[511:480]);
+
+            // $fwrite(file_write_temp,"%h%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
+
                counter = counter +1'd1;
            end
            #Period;
@@ -49,10 +55,10 @@ module Test_Layer1 (
         $finish;
     end
 always  #CLK clk =~clk;
-    Layer2 #(
+    Separable_Convolution_8Channel #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(46),
-        .IMG_HEIGHT(46)
+        .IMG_WIDTH(44),
+        .IMG_HEIGHT(44)
         )
         DUT (
             .Data_In(Data_In),

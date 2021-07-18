@@ -45,7 +45,7 @@
 
 
 
-   Kernel_3x3_stride_1x1_padding_1x1 #(.DATA_WIDHT(32),.IMG_WIDHT(IMG_WIDHT),.IMG_HEIGHT(IMG_HEIGHT))
+   Kernel_3x3_stride_1x1_padding_1 #(.DATA_WIDHT(32),.IMG_WIDHT(IMG_WIDHT),.IMG_HEIGHT(IMG_HEIGHT))
    kernel   (
       .Data_In(Data_In),
       .Valid_in(Valid_In),
@@ -62,8 +62,6 @@
       .Data_Out9(kernel_Data_Out9),
       .Valid_Out(kernal_Valid_Out)
    );
-   wire [31:0] Convo_Data_Out;
-   wire Convo_Valid_Out;
    
    Convo_Core_3x3 core(
       .Data_In0(kernel_Data_Out1),
@@ -84,7 +82,7 @@
       .Kernel6(Kernel6),
       .Kernel7(Kernel7),
       .Kernel8(Kernel8),
-      .Valid_In(Valid_In),
+      .Valid_In(kernal_Valid_Out),
       .Data_Out(Data_Out),
       .Valid_Out(Valid_Out) 
    );

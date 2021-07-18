@@ -3,14 +3,14 @@ import struct
 import os
 current_dir = os.getcwd()
 
-path = "/Project/Python/Weight_File/Convo2/"
+path = "/Project/Python/Weight_File/Residual_Separable_Convolution_0/"
 
 def float_to_bin(num):
     return format(struct.unpack('!I', struct.pack('!f', num))[0], '032b')
     print(float_to_bin(-3.39298397e-02)) 
 
-Moving_Mean_Address = current_dir +path +"conv2_1_running_mean.txt"
-Moving_Variance_Address = current_dir +path +"conv2_1_running_var.txt"
+Moving_Mean_Address = current_dir +path +"residual_blocks_0_bn1_running_mean.txt"
+Moving_Variance_Address = current_dir +path +"residual_blocks_0_bn1_running_var.txt"
 
 A_Address = current_dir +path +"A_num.txt"
 B_Address = current_dir +path +"B_num.txt"
