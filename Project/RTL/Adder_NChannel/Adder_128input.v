@@ -134,7 +134,7 @@ module Adder_128input(
     wire[31:0] Data_Out1,Data_Out2;
     wire add0_Valid_Out;
 
-    Adder_32input add0[1:0] (
+    Adder_64input add0[1:0] (
         .Data1({Data1,Data17}),
         .Data2({Data2,Data18}),
         .Data3({Data3,Data19}),
