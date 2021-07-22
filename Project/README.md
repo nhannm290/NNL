@@ -57,7 +57,7 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
   Number of Layer: 70
 
   Parameters used: 22,910,480
-## Basic Flow Of Xception Architecture
+## Basic Flow Of Mini-Xception Architecture
 
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
 ## Correlation Comparison Between Networks
