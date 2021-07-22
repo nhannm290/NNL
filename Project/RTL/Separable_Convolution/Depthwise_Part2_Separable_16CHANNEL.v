@@ -14,7 +14,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 
     wire[31:0] add_k1_Data_Out, add_k2_Data_Out, add_k3_Data_Out, add_k4_Data_Out, add_k5_Data_Out, add_k6_Data_Out, add_k7_Data_Out, add_k8_Data_Out, add_k9_Data_Out, add_k10_Data_Out, add_k11_Data_Out, add_k12_Data_Out, add_k13_Data_Out, add_k14_Data_Out, add_k15_Data_Out, add_k16_Data_Out;
 
-	wire[31:0] add_kernel1, add_kernel2, add_kernel3, add_kernel4, add_kernel5, add_kernel6, add_kernel7, add_kernel8, add_kernel9, add_kernel10, add_kernel11, add_kernel12, add_kernel13, add_kernel14, add_kernel15, add_kernel16;
+	wire add_kernel1, add_kernel2, add_kernel3, add_kernel4, add_kernel5, add_kernel6, add_kernel7, add_kernel8, add_kernel9, add_kernel10, add_kernel11, add_kernel12, add_kernel13, add_kernel14, add_kernel15, add_kernel16;
 
     wire [31:0] bn1_Data_Out, bn2_Data_Out, bn3_Data_Out, bn4_Data_Out, bn5_Data_Out, bn6_Data_Out, bn7_Data_Out, bn8_Data_Out, bn9_Data_Out, bn10_Data_Out, bn11_Data_Out, bn12_Data_Out, bn13_Data_Out, bn14_Data_Out, bn15_Data_Out, bn16_Data_Out;
 
@@ -107,7 +107,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 
 
     assign Valid_Out=rl1_Valid_Out & rl2_Valid_Out & rl3_Valid_Out & rl4_Valid_Out & rl5_Valid_Out & rl6_Valid_Out & rl7_Valid_Out & rl8_Valid_Out & rl9_Valid_Out & rl10_Valid_Out & rl11_Valid_Out & rl12_Valid_Out & rl13_Valid_Out & rl14_Valid_Out & rl15_Valid_Out & rl16_Valid_Out;
-//////////KERNEL1//////////
+    //////////KERNEL1//////////
 	Convolution2D_1x1_stride_1x1 CHANNEL1_Kernel1 (
 		.Data_In(Data_In[DATA_WIDHT-1:0]),
 		.Kernel(32'b00111110010011100010110101100000),
@@ -252,7 +252,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel1[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel1_Valid_Out)
 	);
-	Adder_8input add_k1(
+	Adder_16input add_k1(
 		.Data1(Data_Out_Kernel1[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel1[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel1[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -261,6 +261,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel1[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel1[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel1[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel1[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel1[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel1[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel1[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel1[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel1[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel1[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel1[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel1),
 		.Data_Out(add_k1_Data_Out),
 		.Valid_Out(add_kernel1_Valid_Out)
@@ -424,7 +432,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel2[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel2_Valid_Out)
 	);
-	Adder_8input add_k2(
+	Adder_16input add_k2(
 		.Data1(Data_Out_Kernel2[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel2[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel2[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -433,6 +441,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel2[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel2[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel2[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel2[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel2[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel2[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel2[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel2[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel2[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel2[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel2[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel2),
 		.Data_Out(add_k2_Data_Out),
 		.Valid_Out(add_kernel2_Valid_Out)
@@ -596,7 +612,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel3[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel3_Valid_Out)
 	);
-	Adder_8input add_k3(
+	Adder_16input add_k3(
 		.Data1(Data_Out_Kernel3[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel3[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel3[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -605,6 +621,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel3[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel3[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel3[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel3[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel3[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel3[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel3[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel3[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel3[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel3[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel3[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel3),
 		.Data_Out(add_k3_Data_Out),
 		.Valid_Out(add_kernel3_Valid_Out)
@@ -768,7 +792,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel4[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel4_Valid_Out)
 	);
-	Adder_8input add_k4(
+	Adder_16input add_k4(
 		.Data1(Data_Out_Kernel4[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel4[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel4[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -777,6 +801,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel4[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel4[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel4[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel4[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel4[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel4[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel4[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel4[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel4[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel4[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel4[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel4),
 		.Data_Out(add_k4_Data_Out),
 		.Valid_Out(add_kernel4_Valid_Out)
@@ -940,7 +972,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel5[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel5_Valid_Out)
 	);
-	Adder_8input add_k5(
+	Adder_16input add_k5(
 		.Data1(Data_Out_Kernel5[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel5[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel5[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -949,6 +981,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel5[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel5[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel5[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel5[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel5[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel5[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel5[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel5[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel5[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel5[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel5[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel5),
 		.Data_Out(add_k5_Data_Out),
 		.Valid_Out(add_kernel5_Valid_Out)
@@ -1112,7 +1152,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel6[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel6_Valid_Out)
 	);
-	Adder_8input add_k6(
+	Adder_16input add_k6(
 		.Data1(Data_Out_Kernel6[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel6[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel6[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1121,6 +1161,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel6[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel6[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel6[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel6[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel6[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel6[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel6[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel6[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel6[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel6[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel6[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel6),
 		.Data_Out(add_k6_Data_Out),
 		.Valid_Out(add_kernel6_Valid_Out)
@@ -1284,7 +1332,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel7[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel7_Valid_Out)
 	);
-	Adder_8input add_k7(
+	Adder_16input add_k7(
 		.Data1(Data_Out_Kernel7[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel7[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel7[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1293,6 +1341,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel7[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel7[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel7[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel7[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel7[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel7[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel7[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel7[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel7[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel7[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel7[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel7),
 		.Data_Out(add_k7_Data_Out),
 		.Valid_Out(add_kernel7_Valid_Out)
@@ -1456,7 +1512,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel8[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel8_Valid_Out)
 	);
-	Adder_8input add_k8(
+	Adder_16input add_k8(
 		.Data1(Data_Out_Kernel8[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel8[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel8[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1465,6 +1521,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel8[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel8[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel8[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel8[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel8[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel8[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel8[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel8[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel8[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel8[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel8[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel8),
 		.Data_Out(add_k8_Data_Out),
 		.Valid_Out(add_kernel8_Valid_Out)
@@ -1628,7 +1692,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel9[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel9_Valid_Out)
 	);
-	Adder_8input add_k9(
+	Adder_16input add_k9(
 		.Data1(Data_Out_Kernel9[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel9[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel9[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1637,6 +1701,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel9[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel9[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel9[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel9[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel9[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel9[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel9[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel9[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel9[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel9[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel9[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel9),
 		.Data_Out(add_k9_Data_Out),
 		.Valid_Out(add_kernel9_Valid_Out)
@@ -1800,7 +1872,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel10[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel10_Valid_Out)
 	);
-	Adder_8input add_k10(
+	Adder_16input add_k10(
 		.Data1(Data_Out_Kernel10[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel10[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel10[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1809,6 +1881,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel10[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel10[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel10[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel10[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel10[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel10[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel10[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel10[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel10[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel10[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel10[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel10),
 		.Data_Out(add_k10_Data_Out),
 		.Valid_Out(add_kernel10_Valid_Out)
@@ -1972,7 +2052,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel11[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel11_Valid_Out)
 	);
-	Adder_8input add_k11(
+	Adder_16input add_k11(
 		.Data1(Data_Out_Kernel11[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel11[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel11[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -1981,6 +2061,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel11[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel11[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel11[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel11[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel11[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel11[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel11[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel11[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel11[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel11[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel11[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel11),
 		.Data_Out(add_k11_Data_Out),
 		.Valid_Out(add_kernel11_Valid_Out)
@@ -2144,7 +2232,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel12[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel12_Valid_Out)
 	);
-	Adder_8input add_k12(
+	Adder_16input add_k12(
 		.Data1(Data_Out_Kernel12[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel12[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel12[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -2153,6 +2241,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel12[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel12[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel12[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel12[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel12[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel12[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel12[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel12[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel12[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel12[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel12[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel12),
 		.Data_Out(add_k12_Data_Out),
 		.Valid_Out(add_kernel12_Valid_Out)
@@ -2316,7 +2412,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel13[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel13_Valid_Out)
 	);
-	Adder_8input add_k13(
+	Adder_16input add_k13(
 		.Data1(Data_Out_Kernel13[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel13[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel13[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -2325,6 +2421,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel13[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel13[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel13[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel13[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel13[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel13[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel13[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel13[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel13[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel13[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel13[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel13),
 		.Data_Out(add_k13_Data_Out),
 		.Valid_Out(add_kernel13_Valid_Out)
@@ -2488,7 +2592,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel14[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel14_Valid_Out)
 	);
-	Adder_8input add_k14(
+	Adder_16input add_k14(
 		.Data1(Data_Out_Kernel14[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel14[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel14[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -2497,6 +2601,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel14[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel14[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel14[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel14[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel14[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel14[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel14[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel14[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel14[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel14[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel14[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel14),
 		.Data_Out(add_k14_Data_Out),
 		.Valid_Out(add_kernel14_Valid_Out)
@@ -2660,7 +2772,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel15[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel15_Valid_Out)
 	);
-	Adder_8input add_k15(
+	Adder_16input add_k15(
 		.Data1(Data_Out_Kernel15[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel15[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel15[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -2669,6 +2781,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel15[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel15[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel15[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel15[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel15[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel15[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel15[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel15[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel15[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel15[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel15[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel15),
 		.Data_Out(add_k15_Data_Out),
 		.Valid_Out(add_kernel15_Valid_Out)
@@ -2832,7 +2952,7 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out_Kernel16[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(channel16_Kernel16_Valid_Out)
 	);
-	Adder_8input add_k16(
+	Adder_16input add_k16(
 		.Data1(Data_Out_Kernel16[DATA_WIDHT-1:0]),
 		.Data2(Data_Out_Kernel16[DATA_WIDHT*2-1:DATA_WIDHT]),
 		.Data3(Data_Out_Kernel16[DATA_WIDHT*3-1:DATA_WIDHT*2]),
@@ -2841,6 +2961,14 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data6(Data_Out_Kernel16[DATA_WIDHT*6-1:DATA_WIDHT*5]),
 		.Data7(Data_Out_Kernel16[DATA_WIDHT*7-1:DATA_WIDHT*6]),
 		.Data8(Data_Out_Kernel16[DATA_WIDHT*8-1:DATA_WIDHT*7]),
+		.Data9(Data_Out_Kernel16[DATA_WIDHT*9-1:DATA_WIDHT*8]),
+		.Data10(Data_Out_Kernel16[DATA_WIDHT*10-1:DATA_WIDHT*9]),
+		.Data11(Data_Out_Kernel16[DATA_WIDHT*11-1:DATA_WIDHT*10]),
+		.Data12(Data_Out_Kernel16[DATA_WIDHT*12-1:DATA_WIDHT*11]),
+		.Data13(Data_Out_Kernel16[DATA_WIDHT*13-1:DATA_WIDHT*12]),
+		.Data14(Data_Out_Kernel16[DATA_WIDHT*14-1:DATA_WIDHT*13]),
+		.Data15(Data_Out_Kernel16[DATA_WIDHT*15-1:DATA_WIDHT*14]),
+		.Data16(Data_Out_Kernel16[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_In(add_kernel16),
 		.Data_Out(add_k16_Data_Out),
 		.Valid_Out(add_kernel16_Valid_Out)
@@ -2859,6 +2987,5 @@ module Depthwise_Part2_Separable_16CHANNEL #(
 		.Data_Out(Data_Out[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(rl16_Valid_Out)
 	);
-
 
 endmodule

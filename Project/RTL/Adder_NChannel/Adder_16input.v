@@ -31,7 +31,7 @@ module Adder_16input (
         .Data6({Data6,Data14}),
         .Data7({Data7,Data15}),
         .Data8({Data8,Data16}),
-        .Vadi_In(Valid_In),
+        .Valid_In(Valid_In),
         .Data_Out({Data_Out1,Data_Out2}),
         .Valid_Out(add0_Valid_Out)
     );

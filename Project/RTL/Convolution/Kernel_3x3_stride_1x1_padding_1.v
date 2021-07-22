@@ -1,4 +1,9 @@
-module Kernel_3x3_stride_1x1_padding_1 #(parameter IMG_WIDHT = 299, parameter IMG_HEIGHT = 299, parameter DATA_WIDHT = 32) (
+module Kernel_3x3_stride_1x1_padding_1 #(
+    parameter IMG_WIDHT = 299, 
+    parameter IMG_HEIGHT = 299, 
+    parameter DATA_WIDHT = 32
+    ) 
+(
     input [31:0] Data_In,
     input clk,
     input rst,

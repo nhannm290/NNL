@@ -1,3 +1,20 @@
+module Convo_Layer3 #(
+    parameter DATA_WIDHT = 32,
+	parameter IMG_WIDHT = 44,
+	parameter IMG_HEIGHT =44
+)
+(
+    input [DATA_WIDHT*8-1:0] Data_In,
+    input Valid_In,
+    input clk,
+    input rst,
+    output [DATA_WIDHT*16-1:0] Data_Out,
+    output Valid_Out
+);
+	wire [DATA_WIDHT*8-1:0] Data_Out_Kernel1,Data_Out_Kernel2,Data_Out_Kernel3,Data_Out_Kernel4,Data_Out_Kernel5,Data_Out_Kernel6,Data_Out_Kernel7,Data_Out_Kernel8,Data_Out_Kernel9,Data_Out_Kernel10,Data_Out_Kernel11,Data_Out_Kernel12,Data_Out_Kernel13,Data_Out_Kernel14,Data_Out_Kernel15,Data_Out_Kernel16;
+
+	wire add_kernel1, add_kernel2, add_kernel3, add_kernel4, add_kernel5, add_kernel6, add_kernel7, add_kernel8, add_kernel9, add_kernel10, add_kernel11, add_kernel12, add_kernel13, add_kernel14, add_kernel15, add_kernel16;
+
 	wire channel1_Kernel1_Valid_Out, channel2_Kernel1_Valid_Out, channel3_Kernel1_Valid_Out, channel4_Kernel1_Valid_Out, channel5_Kernel1_Valid_Out, channel6_Kernel1_Valid_Out, channel7_Kernel1_Valid_Out, channel8_Kernel1_Valid_Out;
 
 	assign add_kernel1=channel1_Kernel1_Valid_Out & channel2_Kernel1_Valid_Out & channel3_Kernel1_Valid_Out & channel4_Kernel1_Valid_Out & channel5_Kernel1_Valid_Out & channel6_Kernel1_Valid_Out & channel7_Kernel1_Valid_Out & channel8_Kernel1_Valid_Out;
@@ -65,13 +82,23 @@
 
 	wire[31:0] add_k1_Data_Out, add_k2_Data_Out, add_k3_Data_Out, add_k4_Data_Out, add_k5_Data_Out, add_k6_Data_Out, add_k7_Data_Out, add_k8_Data_Out, add_k9_Data_Out, add_k10_Data_Out, add_k11_Data_Out, add_k12_Data_Out, add_k13_Data_Out, add_k14_Data_Out, add_k15_Data_Out, add_k16_Data_Out;
 
-	wire add_kernel1, add_kernel2, add_kernel3, add_kernel4, add_kernel5, add_kernel6, add_kernel7, add_kernel8, add_kernel9, add_kernel10, add_kernel11, add_kernel12, add_kernel13, add_kernel14, add_kernel15, add_kernel16;
-
 	wire [31:0] bn1_Data_Out, bn2_Data_Out, bn3_Data_Out, bn4_Data_Out, bn5_Data_Out, bn6_Data_Out, bn7_Data_Out, bn8_Data_Out, bn9_Data_Out, bn10_Data_Out, bn11_Data_Out, bn12_Data_Out, bn13_Data_Out, bn14_Data_Out, bn15_Data_Out, bn16_Data_Out;
 
 	wire bn1_Valid_Out, bn2_Valid_Out, bn3_Valid_Out, bn4_Valid_Out, bn5_Valid_Out, bn6_Valid_Out, bn7_Valid_Out, bn8_Valid_Out, bn9_Valid_Out, bn10_Valid_Out, bn11_Valid_Out, bn12_Valid_Out, bn13_Valid_Out, bn14_Valid_Out, bn15_Valid_Out, bn16_Valid_Out;
 
 	wire rl1_Valid_Out, rl2_Valid_Out, rl3_Valid_Out, rl4_Valid_Out, rl5_Valid_Out, rl6_Valid_Out, rl7_Valid_Out, rl8_Valid_Out, rl9_Valid_Out, rl10_Valid_Out, rl11_Valid_Out, rl12_Valid_Out, rl13_Valid_Out, rl14_Valid_Out, rl15_Valid_Out, rl16_Valid_Out;
+
+	assign Valid_Out_Temp=rl1_Valid_Out & rl2_Valid_Out & rl3_Valid_Out & rl4_Valid_Out & rl5_Valid_Out & rl6_Valid_Out & rl7_Valid_Out & rl8_Valid_Out & rl9_Valid_Out & rl10_Valid_Out & rl11_Valid_Out & rl12_Valid_Out & rl13_Valid_Out & rl14_Valid_Out & rl15_Valid_Out &rl16_Valid_Out;
+
+
+	reg[31:0] Counter = 0;
+	assign Valid_Out = (Counter >32'd0 && Counter < IMG_WIDHT*IMG_HEIGHT+1) ? 1'b1:1'b0;
+	always @(posedge clk or negedge rst) begin
+		if (~rst) Counter <=0;
+		else if (Valid_In) Counter <= Counter + 1'b1;
+		else Counter <= Counter;
+	end
+
 //////////KERNEL1//////////
 	Convolution2D_1x1_stride_1x1 CHANNEL1_Kernel1 (
 		.Data_In(Data_In[DATA_WIDHT-1:0]),
@@ -1672,3 +1699,5 @@
 		.Data_Out(Data_Out[DATA_WIDHT*16-1:DATA_WIDHT*15]),
 		.Valid_Out(rl16_Valid_Out)
 	);
+
+endmodule

@@ -11,8 +11,8 @@ module Test_Layer1 (
     parameter Period = CLK*2;
 
     parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result.txt";
-    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Separable_Convolution_8Channel_Result.txt";
-    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Separable_Convolution_8Channel_Temp_Result.txt";
+    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer3_Result.txt";
+    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer3_Temp_Result.txt";
 
     //Port 
     reg [DATA_WIDHT*8-1:0] Data_In;
@@ -30,10 +30,10 @@ module Test_Layer1 (
         #Period
         rst = 1;
         #CLK
-        Valid_In = 1;
         file_read = $fopen(ADDRESS_READ,"r");
         file_write = $fopen(ADDRESS_WRITE,"w");
         file_write_temp = $fopen(ADDRESS_WRITE_TEMP,"w");
+        Valid_In = 1;
 
 
         while(!$feof(file_read) || Valid_Out ==1) begin
@@ -55,9 +55,9 @@ module Test_Layer1 (
         $finish;
     end
 always  #CLK clk =~clk;
-    Separable_Convolution_8Channel #(
+    Layer3 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(44),
+        .IMG_WIDHT(44),
         .IMG_HEIGHT(44)
         )
         DUT (

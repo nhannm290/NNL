@@ -1,4 +1,9 @@
-module MaxPooling_3x3 (
+module MaxPooling_3x3 #(
+    parameter DATA_WIDHT = 32,
+    parameter IMG_WIDHT = 44,
+    parameter IMG_HEIGHT =44
+)
+(
     input [31:0] Data_In,
     input Valid_In,
     input clk,
@@ -10,7 +15,7 @@ module MaxPooling_3x3 (
     wire [31:0] kernel_Data_Out1,kernel_Data_Out2,kernel_Data_Out3,kernel_Data_Out4;
     wire kernel_Valid_Out;
 
-    Kernel_3x3_stride_2x2 #(.DATA_WIDHT(32), .IMG_WIDHT(299),.IMG_HEIGHT(299))
+    Kernel_3x3_stride_2x2 #(.DATA_WIDHT(DATA_WIDHT), .IMG_WIDHT(IMG_WIDHT),.IMG_HEIGHT(IMG_HEIGHT))
     kernel (
         .Data_In(Data_In),
         .Valid_In(Valid_In),
