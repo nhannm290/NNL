@@ -47,10 +47,10 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
 
 
-# Xception Architecture
-## Xception Architecture Specifications:
+# Mini-Xception Architecture
+## Mini-Xception Architecture Specifications:
 
-  INPUT image 299x299x3
+  INPUT image 48x48x1
 
   OUTPUT(Floating Point)
 
