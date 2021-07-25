@@ -55,7 +55,7 @@ module Adder_32input(
         .Data14({Data14,Data30}),
         .Data15({Data15,Data31}),
         .Data16({Data16,Data32}),
-        .Vadi_In(Valid_In),
+        .Valid_In(Valid_In),
         .Data_Out({Data_Out1,Data_Out2}),
         .Valid_Out(add0_Valid_Out)
     );

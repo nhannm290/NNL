@@ -24,32 +24,36 @@ def wire(channel =8,kernel=16,type_wire ="Valid_Out"):
                     wire_input = wire_input +"channel"+str(c2+1)+"_Kernel"+str(k+1)+"_Valid_Out & "
     return(wire_input)
 
-def wire_convo(channel=16):
-    wire_input= "\twire "
-    for c1 in range(channel):
-        if (c1==channel-1):
-            wire_input = wire_input +"CHANNEL"+str(c1+1)+"_Valid_Out;\n\n"
+def wire_convo(kernel=16):
+    wire_input= "\twire[31:0] "
+    for k in range(kernel):
+        if (k ==kernel-1):
+            wire_input = wire_input + "Data_Out_Kernel"+str(k+1)+";"
         else:
-            wire_input = wire_input+ "CHANNEL" +str(c1+1)+"_Valid_Out, "
-    wire_input = wire_input + "\tassign Valid_Out= "
-    for c2 in range(channel):
-        if (c2==channel-1):
-            wire_input = wire_input +"CHANNEL" + str(c2+1) +"_Valid_Out;\n\n"
-        else:
-            wire_input = wire_input +"CHANNEL" +str(c2+1)+"_Valid_Out & "
+            wire_input = wire_input + "Data_Out_Kernel"+str(k+1)+", "
     return (wire_input)
             
-
+def wire_gen_CHANNEL_Valid_Out(channel = 64):
+    wire_output1 = "\twire "
+    wire_output2= "assign Valid_Out= "
+    for c in range (channel):
+        if c == channel -1:
+            wire_output1 = wire_output1 + "CHANNEL"+str(c+1)+"_Valid_Out;"
+            wire_output2 = wire_output2 + "CHANNEL"+str(c+1)+"_Valid_Out;"
+        else:
+            wire_output1 = wire_output1 + "CHANNEL"+str(c+1)+"_Valid_Out, "
+            wire_output2 = wire_output2 + "CHANNEL"+str(c+1)+"_Valid_Out & "
+    return(wire_output1+ "\n\t"+wire_output2)
 
 def wire_add_Valid_Out(kernel=16):
     wire_input = "\twire "
     for k in range(kernel):
         # for c in range(channel):
         if (k==kernel-1):
-            wire_input = wire_input +"add_kernel"+str(k+1)+";\n"
+            wire_input = wire_input +"add_kernel"+str(k+1)+"_Valid_Out;\n"
             # wire_input = wire_input + "\n\twire "
         else:
-            wire_input = wire_input +"add_kernel"+str(k+1)+", "
+            wire_input = wire_input +"add_kernel"+str(k+1)+"_Valid_Out, "
     return(wire_input)
 
 def wire_add_Data_Out(kernel=16):
@@ -77,12 +81,40 @@ def wire_batch_norm(kernel=16,type_wire = "Data_Out"):
 
 def wire_rl(kernel=16):
     wire_input ="\twire "
+    wire_input2 = "\t assign Valid_Out = "
     for k in range(kernel):
         if k == kernel-1:
             wire_input = wire_input+ "rl"+str(k+1)+"_Valid_Out;\n"
+            wire_input2 =wire_input2 +"rl"+str(k+1)+"_Valid_Out;\n"
         else:
             wire_input = wire_input+ "rl"+str(k+1)+"_Valid_Out, "
-    return wire_input
+            wire_input2 =wire_input2 +"rl"+str(k+1)+"_Valid_Out & "
+    return (wire_input + "\n" + wire_input2)
+
+
+def wire_DataOut(channel = 64):
+    output = ""
+    for c in range (channel):
+        if c ==0:
+            output = output + "Data_Out[DATA_WIDHT:0],"
+        elif c == channel-1:
+            output = output + "Data_Out[" + str((c+1)*32-1) +":" + str(c*32) +"]"
+        else:
+            output = output + "Data_Out[" + str((c+1)*32-1) +":" + str(c*32) +"],"
+    return(output)
+
+def wire_gen(channel = 64):
+    output = ""
+    for c in range (channel):
+        if c ==0:
+            output = output + "Data_Out[DATA_WIDHT-1:0], "
+        elif c == 1:
+            output = output + "Data_Out[DATA_WIDHT*2-1:DATA_WIDHT],"
+        elif c == channel-1:
+            output = output + "Data_Out[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"]"
+        else:
+            output = output + "Data_Out[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"],"
+    return(output)
 
 
 def convo3x3_stride_1x1_padding1(channel=128, path_kernel = current_dir+path_Weight+"Residual_Separable_Convolution_0/residual_blocks_0_depthwise_conv2_0_weight.txt"):
@@ -100,53 +132,55 @@ def convo3x3_stride_1x1_padding1(channel=128, path_kernel = current_dir+path_Wei
         convo_module= convo_module + "\t)\n"
         convo_module = convo_module +"\t\tCHANNEL"+str(c+1) +" (\n"
 
-        if (channel==0):
+        if (c==0):
             input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT-1:0]),\n"
-        elif (channel==1):
+        elif (c==1):
             input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT*2-1:DATA_WIDHT]),\n"
         else:
-            input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT*"+str(channel+1)+"-1:DATA_WIDHT*"+str(channel) +"]),\n"
+            input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"]),\n"
         if len(str(array_kernel[i])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne0(32'b00"+str(array_kernel[i])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel0(32'b00"+str(array_kernel[i])+"),\n"
         else: 
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne0(32'b"+str(array_kernel[i])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel0(32'b"+str(array_kernel[i])+"),\n"
         if len(str(array_kernel[i+1])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne1(32'b00"+str(array_kernel[i+1])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel1(32'b00"+str(array_kernel[i+1])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne1(32'b"+str(array_kernel[i+1])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel1(32'b"+str(array_kernel[i+1])+"),\n"
         if len(str(array_kernel[i+2])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne2(32'b00"+str(array_kernel[i+2])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel2(32'b00"+str(array_kernel[i+2])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne2(32'b"+str(array_kernel[i+2])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel2(32'b"+str(array_kernel[i+2])+"),\n"
         if len(str(array_kernel[i+3])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne3(32'b00"+str(array_kernel[i+3])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel3(32'b00"+str(array_kernel[i+3])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne3(32'b"+str(array_kernel[i+3])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel3(32'b"+str(array_kernel[i+3])+"),\n"
         if len(str(array_kernel[i+4])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne4(32'b00"+str(array_kernel[i+4])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel4(32'b00"+str(array_kernel[i+4])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne4(32'b"+str(array_kernel[i+4])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel4(32'b"+str(array_kernel[i+4])+"),\n"
         if len(str(array_kernel[i+5])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne5(32'b00"+str(array_kernel[i+5])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel5(32'b00"+str(array_kernel[i+5])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne5(32'b"+str(array_kernel[i+5])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel5(32'b"+str(array_kernel[i+5])+"),\n"
         if len(str(array_kernel[i+6])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne6(32'b00"+str(array_kernel[i+6])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel6(32'b00"+str(array_kernel[i+6])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne6(32'b"+str(array_kernel[i+6])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel6(32'b"+str(array_kernel[i+6])+"),\n"
         if len(str(array_kernel[i+7])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne7(32'b00"+str(array_kernel[i+7])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel7(32'b00"+str(array_kernel[i+7])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne7(32'b"+str(array_kernel[i+7])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel7(32'b"+str(array_kernel[i+7])+"),\n"
         if len(str(array_kernel[i+8])) !=32:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne8(32'b00"+str(array_kernel[i+8])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel8(32'b00"+str(array_kernel[i+8])+"),\n"
         else:
-            input_convo_Module = input_convo_Module + "\t\t\t.Kerne8(32'b"+str(array_kernel[i+8])+"),\n"
+            input_convo_Module = input_convo_Module + "\t\t\t.Kernel8(32'b"+str(array_kernel[i+8])+"),\n"
         input_convo_Module = input_convo_Module +"\t\t\t.Valid_In(Valid_In),\n"
         input_convo_Module = input_convo_Module +"\t\t\t.clk(clk),\n"
         input_convo_Module = input_convo_Module +"\t\t\t.rst(rst),\n"
         if (c==0):
             input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out[DATA_WIDHT-1:0]),\n"
+        elif (c==1):
+            input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out[DATA_WIDHT*2-1:DATA_WIDHT]),\n"
         else:
             input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"]),\n"
         input_convo_Module = input_convo_Module +"\t\t\t.Valid_Out(CHANNEL"+str(c+1)+"_Valid_Out)\n"
@@ -205,7 +239,7 @@ def convo(channel = 1, kernel = 1,string_kernel = "00111101100101001011110111101
 
 
 def adder(kernel =0,channel = 8):
-    adder_module = "\tAdder_8input add_k"+str(kernel+1)+"(\n"
+    adder_module = "\tAdder_"+str(channel)+"input add_k"+str(kernel+1)+"(\n"
     # adder_input = "\t\t.Data1(Data_Out_Kernel"+str(kernel+1)+"[DATA_WIDHT-1:0]),\n"
     # adder_input = adder_input + "\t\t.Data2(Data_Out_Kernel"+str(kernel+1)+"[DATA_WIDHT*2-1:DATA_WIDHT]),\n"
     # adder_input = adder_input + "\t\t.Data3(Data_Out_Kernel"+str(kernel+1)+"[DATA_WIDHT*3-1:DATA_WIDHT*2]),\n"
@@ -259,11 +293,13 @@ def relu(kernel = 1):
     relu_input = relu_input +"\t);\n"
     relu_output = relu_module + relu_input
     return (relu_output)
-# print(relu_output)
-file_read_Kernel = open(current_dir+path_Weight+"Residual_Separable_Convolution_0/Convo/residual_blocks.0_residual_conv_weight.txt","r")
+    # print(relu_output)
 
-file_read_A = open(current_dir+path_Weight+"Residual_Separable_Convolution_0/Convo/A_num.txt","r")
-file_read_B = open(current_dir+path_Weight+"Residual_Separable_Convolution_0/Convo/B_num.txt","r")
+
+file_read_Kernel = open(current_dir+path_Weight+"Residual_Separable_Convolution_blocks_3/conv/residual_blocks.3.residual_conv.weight.txt","r")
+
+file_read_A = open(current_dir+path_Weight+"Residual_Separable_Convolution_blocks_3/conv/A_num.txt","r")
+file_read_B = open(current_dir+path_Weight+"Residual_Separable_Convolution_blocks_3/conv/B_num.txt","r")
 
 line_read_Kernel = file_read_Kernel.readline()
 
@@ -272,24 +308,26 @@ line_B = file_read_B.readline()
 
 file_write = open(current_dir+path_Gen+"Separable.v","w")
 
-file_write.write(wire(channel=8,kernel=16,type_wire="Valid_Out")+"\n")
-file_write.write(wire_add_Data_Out(kernel=16)+"\n")
-file_write.write(wire_add_Valid_Out(kernel=16)+"\n")
-file_write.write(wire_batch_norm(kernel=16,type_wire="Data_Out")+"\n")
-file_write.write(wire_batch_norm(kernel=16,type_wire="Valid_Out")+"\n")
-file_write.write(wire_rl(kernel=16))
 
-for kernel in range(16):
-    file_write.write("/"*10+"KERNEL"+str(kernel+1)+"/"*10+"\n")
-    for channel in range(8):
-        # print(convo(channel=channel,kernel=0,string_kernel = str(line_read)))
-        file_write.write(convo(channel=channel,kernel=kernel,string_kernel = str(line_read_Kernel).split("\n")[0]))
-        line_read_Kernel = file_read_Kernel.readline()
-    file_write.write(adder(kernel=kernel,channel=8))
-    file_write.write(batch_norm(kernel=kernel,A_string=line_A.split("\n")[0],B_string=line_B.split("\n")[0]))
-    line_A = file_read_A.readline()
-    line_B = file_read_B.readline()
-    file_write.write(relu(kernel=kernel))
+# file_write.write(wire_convo(kernel =128)+"\n")
+# file_write.write(wire_add_Data_Out(kernel=128)+"\n")
+# file_write.write(wire_add_Valid_Out(kernel=128)+"\n")
+# file_write.write(wire(channel=64,kernel=128,type_wire="Valid_Out")+"\n")
+# file_write.write(wire_batch_norm(kernel=128,type_wire="Data_Out")+"\n")
+# file_write.write(wire_batch_norm(kernel=128,type_wire="Valid_Out")+"\n")
+# file_write.write(wire_rl(kernel=128))
+
+# for kernel in range(128):
+#     file_write.write("/"*10+"KERNEL"+str(kernel+1)+"/"*10+"\n")
+#     for channel in range(64):
+#         # print(convo(channel=channel,kernel=0,string_kernel = str(line_read)))
+#         file_write.write(convo(channel=channel,kernel=kernel,string_kernel = str(line_read_Kernel).split("\n")[0]))
+#         line_read_Kernel = file_read_Kernel.readline()
+#     file_write.write(adder(kernel=kernel,channel=64))
+#     file_write.write(batch_norm(kernel=kernel,A_string=line_A.split("\n")[0],B_string=line_B.split("\n")[0]))
+#     line_A = file_read_A.readline()
+#     line_B = file_read_B.readline()
+#     file_write.write(relu(kernel=kernel))
 
 
 # print(adder(kernel=16,channel=16))
@@ -297,3 +335,6 @@ for kernel in range(16):
 
 # file_write.write(convo3x3_stride_1x1_padding1(channel=16,path_kernel=current_dir+path_Weight+"Residual_Separable_Convolution_0/residual_blocks_0_depthwise_conv2_0_weight.txt"))
 
+# file_write.write(convo3x3_stride_1x1_padding1(channel=128,path_kernel=current_dir+path_Weight+"Residual_Separable_Convolution_blocks_3/residual_blocks.3.depthwise_conv2.0.weight.txt"))
+
+file_write.write(wire_DataOut(channel = 128))

@@ -151,11 +151,10 @@ module Adder_128input(
         .Data14({Data14,Data30}),
         .Data15({Data15,Data31}),
         .Data16({Data16,Data32}),
-        
-        .Data17({Data33,Data49}),
-        .Data18({Data34,Data50}),
-        .Data19({Data35,Data51}),
-        .Data20({Data36,Data52}),
+        .Data17({Data17,Data49}),
+        .Data18({Data18,Data50}),
+        .Data19({Data19,Data51}),
+        .Data20({Data20,Data52}),
         .Data21({Data37,Data53}),
         .Data22({Data38,Data54}),
         .Data23({Data39,Data55}),
@@ -168,7 +167,7 @@ module Adder_128input(
         .Data30({Data46,Data62}),
         .Data31({Data47,Data63}),
         .Data32({Data48,Data64}),
-
+        
         .Data33({Data65,Data97}),
         .Data34({Data66,Data98}),
         .Data35({Data67,Data99}),
@@ -201,7 +200,7 @@ module Adder_128input(
         .Data62({Data94,Data126}),
         .Data63({Data95,Data127}),
         .Data64({Data96,Data128}),
-        .Vadi_In(Valid_In),
+        .Valid_In(Valid_In),
         .Data_Out({Data_Out1,Data_Out2}),
         .Valid_Out(add0_Valid_Out)
     );
