@@ -1,6 +1,6 @@
 module Layer1  #(
     parameter DATA_WIDHT = 32,
-    parameter IMG_WIDTH =220,
+    parameter IMG_WIDHT =220,
     parameter IMG_HEIGHT =220
 ) (
     input [DATA_WIDHT-1:0] Data_In,
@@ -22,7 +22,7 @@ module Layer1  #(
     assign Valid_Out = CHANNEL1_Valid_Out & CHANNEL2_Valid_Out & CHANNEL3_Valid_Out & CHANNEL4_Valid_Out & CHANNEL5_Valid_Out&CHANNEL6_Valid_Out&CHANNEL7_Valid_Out&CHANNEL8_Valid_Out;
     Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL1 (
@@ -62,7 +62,7 @@ module Layer1  #(
     
     Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL2 (
@@ -101,7 +101,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL3 (
@@ -140,7 +140,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL4 (
@@ -179,7 +179,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL5 (
@@ -218,7 +218,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL6 (
@@ -257,7 +257,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL7 (
@@ -296,7 +296,7 @@ module Layer1  #(
 
         Covolution2D_3x3_stride1x1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_WIDTH(IMG_WIDHT),
         .IMG_HEIGHT(IMG_HEIGHT)
         )
         CHANNEL8 (

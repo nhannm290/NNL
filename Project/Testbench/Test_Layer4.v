@@ -3,7 +3,7 @@ module Test_Layer4 (
 );
     // Parameter
     parameter DATA_WIDHT = 32;
-    parameter CHANNEL_IN = 1;
+    parameter CHANNEL_IN = 16;
     parameter CHANNEL_OUT =32;
     // Port
 
@@ -15,7 +15,7 @@ module Test_Layer4 (
     parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer4_Temp_Result.txt";
 
     //Port 
-    reg [DATA_WIDHT*16-1:0] Data_In;
+    reg [DATA_WIDHT*CHANNEL_IN-1:0] Data_In;
     reg clk,rst,Valid_In;
 
     wire [DATA_WIDHT*CHANNEL_OUT-1:0] Data_Out;

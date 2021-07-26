@@ -1,18 +1,18 @@
-module Test_MiniXception (
+module Test_Layer3 (
     
-);ưq
-     // Parameter
+);
+    // Parameter
     parameter DATA_WIDHT = 32;
-    parameter CHANNEL_IN =1;
-    parameter CHANNEL_OUT =7;
+    parameter CHANNEL_IN = 8;
+    parameter CHANNEL_OUT =16;
     // Port
 
     parameter CLK = 20;
     parameter Period = CLK*2;
 
-    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/TestFile_48x48_Convert.txt";
-    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/MiniXception_Result.txt";
-    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/MiniXception_Temp_Result.txt";
+    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result.txt";
+    parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer3_Result.txt";
+    parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer3_Temp_Result.txt";
 
     //Port 
     reg [DATA_WIDHT*CHANNEL_IN-1:0] Data_In;
@@ -37,13 +37,13 @@ module Test_MiniXception (
 
 
         while(!$feof(file_read) || Valid_Out ==1) begin
-           Data = $fscanf(file_read,"%b",Data_In);
+           Data = $fscanf(file_read,"%h",Data_In);
            if (Valid_Out) begin
-               $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192]);
+               $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224],Data_Out[287:256],Data_Out[319:288],Data_Out[351:320],Data_Out[383:352],Data_Out[415:384],Data_Out[447:416],Data_Out[479:448],Data_Out[511:480]);
 
             // $fwrite(file_write,"%h\t%h\t%h\t%h\t%h\t%h\t%h\t%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
 
-                $fwrite(file_write_temp,"%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192]);
+                $fwrite(file_write_temp,"%h%h%h%h%h%h%h%h%h%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224],Data_Out[287:256],Data_Out[319:288],Data_Out[351:320],Data_Out[383:352],Data_Out[415:384],Data_Out[447:416],Data_Out[479:448],Data_Out[511:480]);
 
             // $fwrite(file_write_temp,"%h%h%h%h%h%h%h%h\n",Data_Out[31:0],Data_Out[63:32],Data_Out[95:64],Data_Out[127:96],Data_Out[159:128],Data_Out[191:160],Data_Out[223:192],Data_Out[255:224]);
 
@@ -55,7 +55,7 @@ module Test_MiniXception (
         $finish;
     end
 always  #CLK clk =~clk;
-    Mini_Xception #(
+    Layer3 #(
         .DATA_WIDHT(DATA_WIDHT),
         .IMG_WIDHT(44),
         .IMG_HEIGHT(44)
@@ -68,6 +68,5 @@ always  #CLK clk =~clk;
             .Data_Out(Data_Out),
             .Valid_Out(Valid_Out)
         );
-    
     
 endmodule

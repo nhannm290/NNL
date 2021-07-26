@@ -3,14 +3,14 @@ module Test_Residual_Block(
 );
      // Parameter
     parameter DATA_WIDHT = 32;
-    parameter CHANNEL_IN =1;
+    parameter CHANNEL_IN =8;
     parameter CHANNEL_OUT =128;
     // Port
 
     parameter CLK = 20;
     parameter Period = CLK*2;
 
-    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result_Temp_Result.txt";
+    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Layer2_Temp_Result.txt";
     parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Residual_Block_Result.txt";
     parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Residual_Block_Temp_Result.txt";
 
