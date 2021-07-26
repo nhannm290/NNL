@@ -1,5 +1,7 @@
 module First_Part #(
-    parameter DATA_WIDHT = 32
+    parameter DATA_WIDHT = 32,
+    parameter IMG_WIDHT = 48,
+    parameter IMG_HEIGHT =48
 )
 (
     input [DATA_WIDHT-1:0] Data_In,
@@ -15,8 +17,8 @@ module First_Part #(
     wire l1_Value_Out;
     Layer1 #(
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(32'd48),
-        .IMG_HEIGHT(32'd48)
+        .IMG_WIDTH(IMG_WIDHT),
+        .IMG_HEIGHT(IMG_HEIGHT)
     )
         l1(
             .Data_In(Data_In),
@@ -29,8 +31,8 @@ module First_Part #(
     
     Layer2 # (
         .DATA_WIDHT(DATA_WIDHT),
-        .IMG_WIDTH(32'd46),
-        .IMG_HEIGHT(32'd46)
+        .IMG_WIDTH(IMG_WIDHT-2),
+        .IMG_HEIGHT(IMG_HEIGHT-2)
     )
         l2(
             .Data_In(l1_Data_Out),

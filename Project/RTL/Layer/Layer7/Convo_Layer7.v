@@ -1,7 +1,25 @@
-	wire[31:0] Data_Out_Kernel1, Data_Out_Kernel2, Data_Out_Kernel3, Data_Out_Kernel4, Data_Out_Kernel5, Data_Out_Kernel6, Data_Out_Kernel7;
+module Convo_Layer7#(
+    parameter DATA_WIDHT = 32,
+	parameter IMG_WIDHT = 44,
+	parameter IMG_HEIGHT =44
+)
+(
+    input [DATA_WIDHT*128-1:0] Data_In,
+    input Valid_In,
+    input clk,
+    input rst,
+    output [DATA_WIDHT*7-1:0] Data_Out,
+    output Valid_Out
+);
+	
+	wire[DATA_WIDHT*128-1:0] Data_Out_Kernel1, Data_Out_Kernel2, Data_Out_Kernel3, Data_Out_Kernel4, Data_Out_Kernel5, Data_Out_Kernel6, Data_Out_Kernel7;
 	wire[31:0] add_k1_Data_Out, add_k2_Data_Out, add_k3_Data_Out, add_k4_Data_Out, add_k5_Data_Out, add_k6_Data_Out, add_k7_Data_Out;
 
+    assign Data_Out = (Valid_Out == 1) ? {add_k7_Data_Out,add_k6_Data_Out,add_k5_Data_Out, add_k4_Data_Out, add_k3_Data_Out, add_k2_Data_Out, add_k1_Data_Out} : 224'h0 ;
+
 	wire add_kernel1_Valid_Out, add_kernel2_Valid_Out, add_kernel3_Valid_Out, add_kernel4_Valid_Out, add_kernel5_Valid_Out, add_kernel6_Valid_Out, add_kernel7_Valid_Out;
+
+    assign Valid_Out = add_kernel1_Valid_Out & add_kernel2_Valid_Out& add_kernel3_Valid_Out& add_kernel4_Valid_Out& add_kernel5_Valid_Out& add_kernel6_Valid_Out& add_kernel7_Valid_Out;
 
 	wire channel1_Kernel1_Valid_Out, channel2_Kernel1_Valid_Out, channel3_Kernel1_Valid_Out, channel4_Kernel1_Valid_Out, channel5_Kernel1_Valid_Out, channel6_Kernel1_Valid_Out, channel7_Kernel1_Valid_Out, channel8_Kernel1_Valid_Out, channel9_Kernel1_Valid_Out, channel10_Kernel1_Valid_Out, channel11_Kernel1_Valid_Out, channel12_Kernel1_Valid_Out, channel13_Kernel1_Valid_Out, channel14_Kernel1_Valid_Out, channel15_Kernel1_Valid_Out, channel16_Kernel1_Valid_Out, channel17_Kernel1_Valid_Out, channel18_Kernel1_Valid_Out, channel19_Kernel1_Valid_Out, channel20_Kernel1_Valid_Out, channel21_Kernel1_Valid_Out, channel22_Kernel1_Valid_Out, channel23_Kernel1_Valid_Out, channel24_Kernel1_Valid_Out, channel25_Kernel1_Valid_Out, channel26_Kernel1_Valid_Out, channel27_Kernel1_Valid_Out, channel28_Kernel1_Valid_Out, channel29_Kernel1_Valid_Out, channel30_Kernel1_Valid_Out, channel31_Kernel1_Valid_Out, channel32_Kernel1_Valid_Out, channel33_Kernel1_Valid_Out, channel34_Kernel1_Valid_Out, channel35_Kernel1_Valid_Out, channel36_Kernel1_Valid_Out, channel37_Kernel1_Valid_Out, channel38_Kernel1_Valid_Out, channel39_Kernel1_Valid_Out, channel40_Kernel1_Valid_Out, channel41_Kernel1_Valid_Out, channel42_Kernel1_Valid_Out, channel43_Kernel1_Valid_Out, channel44_Kernel1_Valid_Out, channel45_Kernel1_Valid_Out, channel46_Kernel1_Valid_Out, channel47_Kernel1_Valid_Out, channel48_Kernel1_Valid_Out, channel49_Kernel1_Valid_Out, channel50_Kernel1_Valid_Out, channel51_Kernel1_Valid_Out, channel52_Kernel1_Valid_Out, channel53_Kernel1_Valid_Out, channel54_Kernel1_Valid_Out, channel55_Kernel1_Valid_Out, channel56_Kernel1_Valid_Out, channel57_Kernel1_Valid_Out, channel58_Kernel1_Valid_Out, channel59_Kernel1_Valid_Out, channel60_Kernel1_Valid_Out, channel61_Kernel1_Valid_Out, channel62_Kernel1_Valid_Out, channel63_Kernel1_Valid_Out, channel64_Kernel1_Valid_Out, channel65_Kernel1_Valid_Out, channel66_Kernel1_Valid_Out, channel67_Kernel1_Valid_Out, channel68_Kernel1_Valid_Out, channel69_Kernel1_Valid_Out, channel70_Kernel1_Valid_Out, channel71_Kernel1_Valid_Out, channel72_Kernel1_Valid_Out, channel73_Kernel1_Valid_Out, channel74_Kernel1_Valid_Out, channel75_Kernel1_Valid_Out, channel76_Kernel1_Valid_Out, channel77_Kernel1_Valid_Out, channel78_Kernel1_Valid_Out, channel79_Kernel1_Valid_Out, channel80_Kernel1_Valid_Out, channel81_Kernel1_Valid_Out, channel82_Kernel1_Valid_Out, channel83_Kernel1_Valid_Out, channel84_Kernel1_Valid_Out, channel85_Kernel1_Valid_Out, channel86_Kernel1_Valid_Out, channel87_Kernel1_Valid_Out, channel88_Kernel1_Valid_Out, channel89_Kernel1_Valid_Out, channel90_Kernel1_Valid_Out, channel91_Kernel1_Valid_Out, channel92_Kernel1_Valid_Out, channel93_Kernel1_Valid_Out, channel94_Kernel1_Valid_Out, channel95_Kernel1_Valid_Out, channel96_Kernel1_Valid_Out, channel97_Kernel1_Valid_Out, channel98_Kernel1_Valid_Out, channel99_Kernel1_Valid_Out, channel100_Kernel1_Valid_Out, channel101_Kernel1_Valid_Out, channel102_Kernel1_Valid_Out, channel103_Kernel1_Valid_Out, channel104_Kernel1_Valid_Out, channel105_Kernel1_Valid_Out, channel106_Kernel1_Valid_Out, channel107_Kernel1_Valid_Out, channel108_Kernel1_Valid_Out, channel109_Kernel1_Valid_Out, channel110_Kernel1_Valid_Out, channel111_Kernel1_Valid_Out, channel112_Kernel1_Valid_Out, channel113_Kernel1_Valid_Out, channel114_Kernel1_Valid_Out, channel115_Kernel1_Valid_Out, channel116_Kernel1_Valid_Out, channel117_Kernel1_Valid_Out, channel118_Kernel1_Valid_Out, channel119_Kernel1_Valid_Out, channel120_Kernel1_Valid_Out, channel121_Kernel1_Valid_Out, channel122_Kernel1_Valid_Out, channel123_Kernel1_Valid_Out, channel124_Kernel1_Valid_Out, channel125_Kernel1_Valid_Out, channel126_Kernel1_Valid_Out, channel127_Kernel1_Valid_Out, channel128_Kernel1_Valid_Out;
 
@@ -19793,3 +19811,6 @@
 		.Valid_Out(add_kernel7_Valid_Out)
 	);
 
+
+    
+endmodule

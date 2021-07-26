@@ -55,7 +55,7 @@ module Global_AVG_Pooling #(
         .Valid_Out(add_Valid_Out)
     );
 
-    nbit_Dff #(.DATA_WIDHT(32)) reg[6:0](
+    nbit_Dff #(.DATA_WIDHT(32)) reg0[6:0](
         .Data_In({{CHANNEL1_Data_Out,CHANNEL2_Data_Out,CHANNEL3_Data_Out,CHANNEL4_Data_Out,CHANNEL5_Data_Out,CHANNEL6_Data_Out,CHANNEL7_Data_Out}}),
         .clk(clk),
         .rst(rst),
@@ -66,7 +66,7 @@ module Global_AVG_Pooling #(
     FP_Mul mul[6:0] (
         .data_iA({reg_Data_Out1,reg_Data_Out2,reg_Data_Out3,reg_Data_Out4,reg_Data_Out5,reg_Data_Out6,reg_Data_Out7}),
         .data_iB({32'h3a62c4a6,32'h3a62c4a6,32'h3a62c4a6,32'h3a62c4a6,32'h3a62c4a6,32'h3a62c4a6,32'h3a62c4a6}),
-        .Vadi_In(add_Valid_Out),
+        .Valid_In(add_Valid_Out),
         .data_o({Data_Out[DATA_WIDHT-1:0],Data_Out[DATA_WIDHT*2-1:DATA_WIDHT],Data_Out[DATA_WIDHT*3-1:DATA_WIDHT*2],Data_Out[DATA_WIDHT*4-1:DATA_WIDHT*3],Data_Out[DATA_WIDHT*5-1:DATA_WIDHT*4],Data_Out[DATA_WIDHT*6-1:DATA_WIDHT*5],Data_Out[DATA_WIDHT*7-1:DATA_WIDHT*6]}),
         .Valid_Out()
     );

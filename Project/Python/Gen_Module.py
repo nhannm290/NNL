@@ -125,7 +125,6 @@ def convo3x3_stride_1x1_padding1(channel=128, path_kernel = current_dir+path_Wei
     i = 0
     convo_out =""
     for c in range (channel):
-        
         convo_module = "\tConvolution2D_3x3_stride_1x1_padding_1x1 #(\n"
         convo_module = convo_module + "\t\t.IMG_WIDHT(IMG_WIDHT),\n"
         convo_module= convo_module + "\t\t.IMG_HEIGHT(IMG_HEIGHT)\n"
@@ -191,7 +190,82 @@ def convo3x3_stride_1x1_padding1(channel=128, path_kernel = current_dir+path_Wei
         
     return(convo_out) 
 
+def convo3x3_stride_1x1_padding1_ver2(kernel = 7,channel=128, path_kernel = current_dir+path_Weight+"Residual_Separable_Convolution_0/residual_blocks_0_depthwise_conv2_0_weight.txt"):
+    file_kernel = open(path_kernel,"r")
+    array_kernel = []
+    for line in file_kernel:
+        array_kernel.append(int(line.split("\n")[0]))
+    i = 0
+    convo_output = ""
+    for k in range (kernel):
+        convo_out =""
+        for c in range (channel):
+            convo_module = "\tConvolution2D_3x3_stride_1x1_padding_1x1 #(\n"
+            convo_module = convo_module + "\t\t.IMG_WIDHT(IMG_WIDHT),\n"
+            convo_module= convo_module + "\t\t.IMG_HEIGHT(IMG_HEIGHT)\n"
+            convo_module= convo_module + "\t)\n"
+            convo_module = convo_module +"\t\tCHANNEL"+str(c+1)+"_KERNEL"+str(k+1)+" (\n"
 
+            if (c==0):
+                input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT-1:0]),\n"
+            elif (c==1):
+                input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT*2-1:DATA_WIDHT]),\n"
+            else:
+                input_convo_Module = "\t\t\t.Data_In(Data_In[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"]),\n"
+            if len(str(array_kernel[i])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel0(32'b00"+str(array_kernel[i])+"),\n"
+            else: 
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel0(32'b"+str(array_kernel[i])+"),\n"
+            if len(str(array_kernel[i+1])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel1(32'b00"+str(array_kernel[i+1])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel1(32'b"+str(array_kernel[i+1])+"),\n"
+            if len(str(array_kernel[i+2])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel2(32'b00"+str(array_kernel[i+2])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel2(32'b"+str(array_kernel[i+2])+"),\n"
+            if len(str(array_kernel[i+3])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel3(32'b00"+str(array_kernel[i+3])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel3(32'b"+str(array_kernel[i+3])+"),\n"
+            if len(str(array_kernel[i+4])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel4(32'b00"+str(array_kernel[i+4])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel4(32'b"+str(array_kernel[i+4])+"),\n"
+            if len(str(array_kernel[i+5])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel5(32'b00"+str(array_kernel[i+5])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel5(32'b"+str(array_kernel[i+5])+"),\n"
+            if len(str(array_kernel[i+6])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel6(32'b00"+str(array_kernel[i+6])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel6(32'b"+str(array_kernel[i+6])+"),\n"
+            if len(str(array_kernel[i+7])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel7(32'b00"+str(array_kernel[i+7])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel7(32'b"+str(array_kernel[i+7])+"),\n"
+            if len(str(array_kernel[i+8])) !=32:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel8(32'b00"+str(array_kernel[i+8])+"),\n"
+            else:
+                input_convo_Module = input_convo_Module + "\t\t\t.Kernel8(32'b"+str(array_kernel[i+8])+"),\n"
+            input_convo_Module = input_convo_Module +"\t\t\t.Valid_In(Valid_In),\n"
+            input_convo_Module = input_convo_Module +"\t\t\t.clk(clk),\n"
+            input_convo_Module = input_convo_Module +"\t\t\t.rst(rst),\n"
+            if (c==0):
+                input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out_Kernel"+str(k+1)+"[DATA_WIDHT-1:0]),\n"
+            elif (c==1):
+                input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out_Kernel"+str(k+1)+"[DATA_WIDHT*2-1:DATA_WIDHT]),\n"
+            else:
+                input_convo_Module = input_convo_Module+ "\t\t\t.Data_Out(Data_Out_Kernel"+str(k+1)+"[DATA_WIDHT*"+str(c+1)+"-1:DATA_WIDHT*"+str(c) +"]),\n"
+            # channel1_Kernel1_Valid_Out
+            input_convo_Module = input_convo_Module +"\t\t\t.Valid_Out(channel"+str(c+1)+"_Kernel"+str(k+1)+"_Valid_Out)\n"
+            input_convo_Module = input_convo_Module +"\t\t);\n"
+            i = i+9
+            convo_output_module = convo_module +input_convo_Module 
+            convo_out = convo_out + convo_output_module
+        convo_out = convo_out + "\n" + adder(kernel = k,channel = channel) +"\n"
+        convo_output = convo_output+ convo_out 
+    return(convo_output) 
 
 
 
@@ -309,10 +383,10 @@ line_B = file_read_B.readline()
 file_write = open(current_dir+path_Gen+"Separable.v","w")
 
 
-# file_write.write(wire_convo(kernel =128)+"\n")
-# file_write.write(wire_add_Data_Out(kernel=128)+"\n")
-# file_write.write(wire_add_Valid_Out(kernel=128)+"\n")
-# file_write.write(wire(channel=64,kernel=128,type_wire="Valid_Out")+"\n")
+file_write.write(wire_convo(kernel =7)+"\n")
+file_write.write(wire_add_Data_Out(kernel=7)+"\n")
+file_write.write(wire_add_Valid_Out(kernel=7)+"\n")
+file_write.write(wire(channel=128,kernel=7,type_wire="Valid_Out")+"\n")
 # file_write.write(wire_batch_norm(kernel=128,type_wire="Data_Out")+"\n")
 # file_write.write(wire_batch_norm(kernel=128,type_wire="Valid_Out")+"\n")
 # file_write.write(wire_rl(kernel=128))
@@ -333,8 +407,8 @@ file_write = open(current_dir+path_Gen+"Separable.v","w")
 # print(adder(kernel=16,channel=16))
 # file_write.write(wire_convo(channel=16))
 
-# file_write.write(convo3x3_stride_1x1_padding1(channel=16,path_kernel=current_dir+path_Weight+"Residual_Separable_Convolution_0/residual_blocks_0_depthwise_conv2_0_weight.txt"))
+file_write.write(convo3x3_stride_1x1_padding1_ver2(kernel = 7,channel=128,path_kernel=current_dir+path_Weight+"Convo3/conv3.weight.txt"))
 
 # file_write.write(convo3x3_stride_1x1_padding1(channel=128,path_kernel=current_dir+path_Weight+"Residual_Separable_Convolution_blocks_3/residual_blocks.3.depthwise_conv2.0.weight.txt"))
 
-file_write.write(wire_DataOut(channel = 128))
+# file_write.write(wire_DataOut(channel = 128))
