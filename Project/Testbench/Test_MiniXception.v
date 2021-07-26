@@ -1,6 +1,6 @@
 module Test_MiniXception (
     
-);ưq
+);
      // Parameter
     parameter DATA_WIDHT = 32;
     parameter CHANNEL_IN =1;

@@ -1,5 +1,6 @@
 import numpy as np
 import cv2 as cv
+
 detail_file = open("Detail.txt","w")
 img_width = detail_file.readline();
 img_hight = detail_file.readline();
