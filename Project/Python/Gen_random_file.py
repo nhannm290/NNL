@@ -182,5 +182,5 @@ def Layer1(current_dir = current_dir,name_file_read_Matrix="Testfile.txt",name_f
 
 
 
-Gen_File(IMG_HEIGHT = 48,IMG_WIDTH = 48,name_file="TestFile_48x48.txt",path = path_Testbench)
+# Gen_File(IMG_HEIGHT = 48,IMG_WIDTH = 48,name_file="TestFile_48x48.txt",path = path_Testbench)
 Convert_File(name_file_read="TestFile_48x48.txt",name_file_write="TestFile_48x48_Convert.txt",path = path_Testbench)
