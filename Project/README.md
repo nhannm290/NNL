@@ -59,4 +59,13 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
 
+## Detailed Blocks Of Mini_Xception Architecture
+### Fisrt Part
+
+### Residual Block (0 to 3)
+
+### Final Part
+
+
+
 
