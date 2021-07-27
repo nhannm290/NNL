@@ -19,13 +19,13 @@ module TestbenchSoftmax(
         rst = 1;
         Valid_in = 1;
         #CLK
-        class0=32'h438b56a8; //1
-        class1=32'hc4bc1578; //2
-        class2=32'h4394232c; //3
-        class3=32'h44178577;//4
-        class4=32'hc4039896;//5
-        class5=32'hc3b602a5;//6
-        class6=32'h4419399c;//7
+        class0=32'hc4204551; //1
+        class1=32'hc593a346; //2
+        class2=32'h43fe437b; //3
+        class3=32'h4458bf69;//4
+        class4=32'hc4c98fd5;//5
+        class5=32'hc41c84af;//6
+        class6=32'h44db3e56;//7
         $finish;
     end
 always  #CLK clk =~clk;
