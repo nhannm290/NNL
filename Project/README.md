@@ -20,8 +20,6 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
   Value of Max-pooling is 112
 
   Value of Average-pooling is 30
-## Fully Connected Layer 
--	The fully connected layers take high-level filtered images (Convolution and Pooling) and convert them into votes. Each vote value individually votes for the image to be identified.
 ## Stride
 - Stride is the number of pixels changed on the input matrix. 
 - When stride is 1 we move the kernels by 1 pixel. When stride is 2 we move the kernels 2 pixels away and so on.
