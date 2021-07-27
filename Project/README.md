@@ -66,7 +66,7 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
 ### Layer 2,3,4,5
 
-![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual0.png?raw=true)          ![image]    (https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual1.png?raw=true)
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual0.png?raw=true)          ![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual1.png?raw=true)
 
 ### Layer 6
 
