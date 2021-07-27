@@ -61,6 +61,8 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
 
 ## Detailed Layers Of Mini_Xception Architecture
+ - We separate this model into 6 layers to ensure no more bugs from small modules and we can easily simulate each layer to check the result of this model.
+ - Each layer has specific parameters for every module. 
 ### Layer 1
 
 ![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/First_Part.png?raw=true)
