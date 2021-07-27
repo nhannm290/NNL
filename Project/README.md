@@ -46,7 +46,7 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
 
 # Mini-Xception Architecture
-  We use model Mini-Xception to recognize 7 emotions (Angry, Digust, Fear, Happy, Neutral, Sad, Surprise) of people base on datasets *[FER2013](https://www.kaggle.com/msambare/fer2013)*.
+  - We use model Mini-Xception to recognize 7 emotions (Angry, Digust, Fear, Happy, Neutral, Sad, Surprise) of people base on datasets *[FER2013](https://www.kaggle.com/msambare/fer2013)*.
 ## Mini-Xception Architecture Specifications:
 
   INPUT image 48x48x1
