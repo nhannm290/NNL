@@ -58,7 +58,5 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 ## Basic Flow Of Mini-Xception Architecture
 
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
-## Correlation Comparison Between Networks
- ![image](https://user-images.githubusercontent.com/80024215/115452348-848b5180-a248-11eb-9ac0-bc9f2a11d284.png)
-Pictures showing a comparison of Xception architectures with other architectures show that Xception is more optimal than the rest of the algorithms in terms of Size, Top Accuracy, Parameters, ...
+
 
