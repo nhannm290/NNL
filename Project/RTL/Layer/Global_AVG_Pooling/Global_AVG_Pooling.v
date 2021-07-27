@@ -38,13 +38,13 @@ module Global_AVG_Pooling #(
         else Counter <= Counter;
     end
 
-    assign CHANNEL1_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL1_Data_Out;
-    assign CHANNEL2_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL2_Data_Out;
-    assign CHANNEL3_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL3_Data_Out;
-    assign CHANNEL4_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL4_Data_Out;
-    assign CHANNEL5_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL5_Data_Out;
-    assign CHANNEL6_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL6_Data_Out;
-    assign CHANNEL7_TEMP = (Counter ==32'd0) ? 32'h24e69595:CHANNEL7_Data_Out;
+    assign CHANNEL1_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out1;
+    assign CHANNEL2_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out2;
+    assign CHANNEL3_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out3;
+    assign CHANNEL4_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out4;
+    assign CHANNEL5_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out5;
+    assign CHANNEL6_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out6;
+    assign CHANNEL7_TEMP = (Counter ==32'd0) ? 32'h24e69595:reg_Data_Out7;
 
 
     FP_Adder add[6:0](
