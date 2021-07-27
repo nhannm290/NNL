@@ -52,19 +52,22 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
   OUTPUT(Floating Point)
 
-  Number of Layer: 70
+  Number of Layer: 6
 
   Parameters used: 600,000
 ## Basic Flow Of Mini-Xception Architecture
 
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
 
-## Detailed Blocks Of Mini_Xception Architecture
-### Fisrt Part
-![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/First_Part.png?raw=true)
-### Residual Block (0 to 3)
+## Detailed Layers Of Mini_Xception Architecture
+### Layer 1
 
-### Final Part
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/First_Part.png?raw=true)
+
+### Layer 2,3,4,5
+![image] (https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual0.png?raw=true)
+
+### Layer 6
 
 
 
