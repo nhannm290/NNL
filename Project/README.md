@@ -20,8 +20,6 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
   Value of Max-pooling is 112
 
   Value of Average-pooling is 30
-## Fully Connected Layer 
--	The fully connected layers take high-level filtered images (Convolution and Pooling) and convert them into votes. Each vote value individually votes for the image to be identified.
 ## Stride
 - Stride is the number of pixels changed on the input matrix. 
 - When stride is 1 we move the kernels by 1 pixel. When stride is 2 we move the kernels 2 pixels away and so on.
@@ -48,19 +46,42 @@ Hidden layers include: Convolutional, Pooling, Fully connected, and some activat
 
 
 # Mini-Xception Architecture
+  We use model Mini-Xception to recognize 7 emotions (Angry, Digust, Fear, Happy, Neutral, Sad, Surprise) of people base on datasets *[FER2013](https://www.kaggle.com/msambare/fer2013)*.
 ## Mini-Xception Architecture Specifications:
 
   INPUT image 48x48x1
 
   OUTPUT(Floating Point)
 
-  Number of Layer: 70
+  Number of Layer: 6
 
   Parameters used: 600,000
 ## Basic Flow Of Mini-Xception Architecture
 
 ![image](https://user-images.githubusercontent.com/35613645/113336812-365cef80-9327-11eb-992a-f88bf18db550.png)
-## Correlation Comparison Between Networks
- ![image](https://user-images.githubusercontent.com/80024215/115452348-848b5180-a248-11eb-9ac0-bc9f2a11d284.png)
-Pictures showing a comparison of Xception architectures with other architectures show that Xception is more optimal than the rest of the algorithms in terms of Size, Top Accuracy, Parameters, ...
+
+## Detailed Layers Of Mini_Xception Architecture
+ - We separate this model into 6 layers to ensure no more bugs from small modules and we can easily simulate each layer faster to check the result of this model.
+ - Each layer has specific parameters for every module. 
+### Layer 1
+
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/First_Part.png?raw=true)
+
+### Layer 2
+
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual0.png?raw=true)  
+
+### Layer 3
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual1.png?raw=true)
+
+### Layer 4
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual2.png?raw=true)
+
+### Layer 5
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Residual3.png?raw=true)
+
+### Layer 6
+![image](https://github.com/nhannm290/NNL/blob/main/Project/RTL/BlockDiagram/Final_Part.png?raw=true)
+
+
 
