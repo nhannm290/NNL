@@ -16,6 +16,6 @@ for i in range(48):
        image[i,j] = (pixel[k],pixel[k],pixel[k])
        k = k+1
 
-cv.imwrite(current_dir + "/Project/Result/Neutral.jpg",image)
+cv.imwrite(current_dir + "/Project/Result/Test.jpg",image)
 cv.waitKey(0)
 cv.destroyAllWindows()

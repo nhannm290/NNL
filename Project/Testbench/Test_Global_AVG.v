@@ -10,7 +10,7 @@ module Test_Global_AVG (
     parameter CLK = 20;
     parameter Period = CLK*2;
 
-    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Convo_Layer7_Result.txt";
+    parameter   ADDRESS_READ = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/Angry_Result.txt";
     parameter   ADDRESS_WRITE = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/GAVG_Result.txt";
     parameter   ADDRESS_WRITE_TEMP = "E:/ChuyenDeHeViMach/NNL/Project/Testbench/GAVG_Temp_Result.txt";
 
